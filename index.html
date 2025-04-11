@@ -6,67 +6,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mídia Player-Pulse</title>
   <link rel="stylesheet" href="/src/styles/style.css"/>
+  <script src="https://kit.fontawesome.com/b39bd8f7e3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+
 
 </head>
 
-<body>
-    <!--Teste tailwind-->
-    <div class="bg-blue-500 text-white p-4 rounded">
-        Tailwind funcionando ✅
-    </div>
-      
+<body class="bg-gray-900 min-h-screen">
   
-    <div id="container-player">
-      
-      <!--Miniatura-->
-      <div id="miniatura">
-  
-      </div>
-  
-      <!--Progress Bar-->
-      <div id="progress-bar">
-  
-      </div>
-  
-      <!--Controles-->
-      <div id="controles">
-        <!--
-          /--Esquerda--/
-          Pause - Play
-          Prox
-          Volume - Mute
-          Timing
-        -->
-        <div id="left-controls">
-          <button id="play-pause"></button>
-          <button id="next"></button>
-          <button id="volume-mute"></button>
-          <div id="timeReaming">-00.00</div>
+    <div id="container" class="flex items-center justify-center min-h-screen px-4">
+        
+        <div id="player" class="bg-gray-800 rounded-xl w-full max-w-4xl p-6">
+            
+            <div id="container-player" class="flex flex-col gap-6">
+                <!--Miniatura-->
+                <div id="miniatura">
+            
+                </div>
+            
+                <!--Progress Bar-->
+                <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer">
+                    <div id="progress" class="h-full bg-[#1B3964] w-0 tranlation-all duration-150">
+
+                    </div>
+                </div>
+                
+                <!--Player Video-->
+                <div id="video-container" class="w-full rounded-lg overflow-hidden">
+                    
+                    <video src="" class="w-full h-auto" controls>
+                        <source src="/video/02.mp4" type="video/mp4" />
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+
+                <!--Controles-->
+                <div id="controles" class="text-white flex items-center justify-between gap-4">
+                    <!--
+                    /--Esquerda--/
+                    Pause - Play
+                    Prox
+                    Volume - Mute
+                    Timing
+                    -->
+                    <div id="left-controls" class="flex items-center gap-4">
+                        <!--Play-Pause-->
+                        <button id="play-pause">
+                            <i class="fa-solid fa-play"></i>
+                            <i class="fa-solid fa-pause"></i>
+                        </button>
+                        <!--Next-->
+                        <button id="next">
+                            <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                        <!--Volume-Mute-->
+                        <button id="volume-mute">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <i class="fa-solid fa-volume-xmark"></i>
+                        </button>
+                        <!--Time-->
+                        <div id="timeReaming">-00.00</div>
+                    </div>
+                    <!--
+                    /--Direita--/
+                    CC
+                    Settings - Speed - Quality
+                    Picture in picture
+                    Fullscreen
+                    -->
+                    <div id="right-controls" class="flex items-center gap-4">
+                        <!--Menu CC -->
+                        <button id="menu-cc">
+                            <i class="fa-solid fa-closed-captioning"></i>
+                        </button>
+                        <!--Menu Settings-->
+                        <button id="menu-settings">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                        <!--Picture-in-p-->
+                        <button id="pip">
+                            <i class="ti ti-picture-in-picture-filled"></i>
+                        </button>
+                        <!--Full-->
+                        <button id="fullscreen">
+                            <i class="fa-solid fa-expand"></i>
+                            <i class="fa-solid fa-compress"></i>
+                        </button>
+                    </div>
+                <!--Controles-->
+                </div>
+
+            <!--Container-player-->
+            </div>
+        <!--Player-->
         </div>
-  
-        <!--
-          /--Direita--/
-          CC
-          Settings - Speed - Quality
-          Picture in picture
-          Fullscreen
-        -->
-        <div id="right-controls">
-          <!--Menu CC -->
-          <button id="menu-cc">
-  
-          </button>
-          <!--Menu Settings-->
-          <button id="menu-settings">
-  
-          </button>
-          <button id="pip"></button>
-          <button id="fullscreen"></button>
-        </div>
-  
-      </div>
-  
-  
+    <!--Container-->
     </div>
       
   </body>
