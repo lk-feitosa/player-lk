@@ -34,14 +34,14 @@
                 <!--Player Video-->
                 <div id="video-container" class="w-full rounded-lg overflow-hidden">
                     
-                    <video src="" class="w-full h-auto" controls>
-                        <source src="/video/02.mp4" type="video/mp4" />
+                    <video id="video" class="w-full h-auto pointer-events-auto">
+                        <source src="/02.mp4" type="video/mp4" />
                         Seu navegador não suporta o elemento de vídeo.
                     </video>
                 </div>
 
                 <!--Controles-->
-                <div id="controles" class="text-white flex items-center justify-between gap-4">
+                <div id="controles" class="text-white flex items-center justify-between gap-4 [&_button]:cursor-pointer">
                     <!--
                     /--Esquerda--/
                     Pause - Play
@@ -102,7 +102,9 @@
         </div>
     <!--Container-->
     </div>
-      
+
+    <!--Scripts-->
+    <script src="/src/js/player.js" defer></script>
   </body>
   
   </html>

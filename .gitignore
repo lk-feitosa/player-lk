@@ -1,2 +1,5 @@
-tailwindcss
-/video/
+# Ignorar o binário do Tailwind gerado
+/tailwindcss
+
+# Ignorar qualquer vídeo MP4 na raiz do projeto
+/*.mp4
