@@ -9,7 +9,7 @@ const volumeIcon = volumeBtn.querySelector('.fa-volume-high');
 const muteIcon = volumeBtn.querySelector('.fa-volume-xmark');
 
 // Esconder o ícone de pause no início
-pauseIcon.style.display = 'none';
+pauseIcon.classList.add('hidden');
 
 // Alternar entre Play/Pause
 playPauseBtn.addEventListener('click', () => {
@@ -33,13 +33,13 @@ video.addEventListener('click', (e) => {
 
 // Alternar ícones com base no estado do vídeo
 video.addEventListener('play', () => {
-  playIcon.style.display = 'none';
-  pauseIcon.style.display = 'inline';
+  playIcon.classList.add('hidden');
+  pauseIcon.classList.remove('hidden');
 });
 
 video.addEventListener('pause', () => {
-  playIcon.style.display = 'inline';
-  pauseIcon.style.display = 'none';
+  playIcon.classList.remove('hidden');
+  pauseIcon.classList.add('hidden');
 });
 
 // Atualizar tempo restante
@@ -51,40 +51,50 @@ video.addEventListener('timeupdate', () => {
 });
 
 // Volume - Mute
-muteIcon.style.display = 'none';
-volumeBtn.addEventListener('click', () => {
-  video.muted = !video.muted
+muteIcon.classList.add('hidden');
 
-  if (video.muted){
-    volumeIcon.style.display = 'none';
-    muteIcon.style.display = 'inline';
+volumeBtn.addEventListener('click', () => {
+  video.muted = !video.muted;
+
+  if (video.muted) {
+    volumeIcon.classList.add('hidden');
+    muteIcon.classList.remove('hidden');
   } else {
-    volumeIcon.style.display = 'inline';
-    muteIcon.style.display = 'none';
+    volumeIcon.classList.remove('hidden');
+    muteIcon.classList.add('hidden');
   }
 });
+
 
 //Fullscreen
 const fullscreenBtn = document.getElementById('fullscreen');
 const expandIcon = fullscreenBtn.querySelector('.fa-expand');
 const compressIcon = fullscreenBtn.querySelector('.fa-compress');
+const videoContainer = document.getElementById('video-container');
 
-compressIcon.style.display = 'none';
+compressIcon.classList.add('hidden');
 
 fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    video.requestFullscreen();
-    expandIcon.style.display = 'none';
-    compressIcon.style.display = 'inline';
+    videoContainer.requestFullscreen().catch(err => {
+      console.error("Erro ao tentar entrar em fullscreen:", err);
+    });
   } else {
     document.exitFullscreen();
-    expandIcon.style.display = 'inline';
-    compressIcon.style.display = 'none';
   }
 });
 
 document.addEventListener('fullscreenchange', () => {
   const isFullscreen = !!document.fullscreenElement;
-  expandIcon.style.display = isFullscreen ? 'none' : 'inline';
-  compressIcon.style.display = isFullscreen ? 'inline' : 'none';
+  expandIcon.classList.toggle('hidden', isFullscreen);
+  compressIcon.classList.toggle('hidden', !isFullscreen);
+
+  const player = document.getElementById('player');
+  if (isFullscreen) {
+    player.classList.remove('rounded-xl', 'p-6');
+  } else {
+    player.classList.add('rounded-xl', 'p-6');
+  }
 });
+
+

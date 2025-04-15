@@ -23,79 +23,70 @@
                 <div id="miniatura">
             
                 </div>
-            
-                <!--Progress Bar-->
-                <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer">
-                    <div id="progress" class="h-full bg-[#A8C738] w-0 tranlation-all duration-150">
-
-                    </div>
-                </div>
                 
                 <!--Player Video-->
-                <div id="video-container" class="w-full rounded-lg overflow-hidden">
-                    
+                <div id="video-container" class="relative w-full rounded-lg overflow-hidden">
+
+                    <!-- Vídeo -->
                     <video id="video" class="w-full h-auto pointer-events-auto">
                         <source src="/02.mp4" type="video/mp4" />
                         Seu navegador não suporta o elemento de vídeo.
                     </video>
-                </div>
-
-                <!--Controles-->
-                <div id="controles" class="text-white flex items-center justify-between gap-4 [&_button]:cursor-pointer">
-                    <!--
-                    /--Esquerda--/
-                    Pause - Play
-                    Prox
-                    Volume - Mute
-                    Timing
-                    -->
-                    <div id="left-controls" class="flex items-center gap-4">
-                        <!--Play-Pause-->
-                        <button id="play-pause">
-                            <i class="fa-solid fa-play"></i>
-                            <i class="fa-solid fa-pause"></i>
-                        </button>
-                        <!--Next-->
-                        <button id="next">
-                            <i class="fa-solid fa-forward-step"></i>
-                        </button>
-                        <!--Volume-Mute-->
-                        <button id="volume-mute">
-                            <i class="fa-solid fa-volume-high"></i>
-                            <i class="fa-solid fa-volume-xmark"></i>
-                        </button>
-                        <!--Time-->
-                        <div id="timeReaming">-00.00</div>
+                
+                    <!-- Progress Bar -->
+                    <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer absolute bottom-12 z-10">
+                        <div id="progress" class="h-full bg-[#A8C738] w-0 transition-all duration-150"></div>
                     </div>
-                    <!--
-                    /--Direita--/
-                    CC
-                    Settings - Speed - Quality
-                    Picture in picture
-                    Fullscreen
-                    -->
-                    <div id="right-controls" class="flex items-center gap-4">
-                        <!--Menu CC -->
-                        <button id="menu-cc">
-                            <i class="fa-solid fa-closed-captioning"></i>
-                        </button>
-                        <!--Menu Settings-->
-                        <button id="menu-settings">
-                            <i class="fa-solid fa-gear"></i>
-                        </button>
-                        <!--Picture-in-p-->
-                        <button id="pip">
-                            <i class="ti ti-picture-in-picture-filled"></i>
-                        </button>
-                        <!--Full-->
-                        <button id="fullscreen">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress"></i>
-                        </button>
-                    </div>
-                <!--Controles-->
-                </div>
+                
+                    <!-- Fundo degradê -->
+                    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none z-0"></div>
+                
+                    <!-- Controles -->
+                    <div id="controles" class="absolute bottom-0 left-0 w-full flex justify-between items-center px-4 py-2 text-white text-sm z-10">
+                    
+                        <!-- Esquerda -->
+                        <div id="left-controls" class="flex items-center gap-4">
+                            <!-- Play/Pause -->
+                            <button id="play-pause" class="hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-play"></i>
+                                <i class="fa-solid fa-pause hidden"></i>
+                            </button>
+                    
+                            <!-- Next -->
+                            <button id="next" class="hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-forward-step"></i>
+                            </button>
+                    
+                            <!-- Volume -->
+                            <button id="volume-mute" class="hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <i class="fa-solid fa-volume-xmark hidden"></i>
+                            </button>
+                    
+                            <!-- Tempo -->
+                            <div id="timeReaming">-00.00</div>
+                        </div>
+                    
+                        <!-- Direita -->
+                        <div id="right-controls" class="flex items-center gap-4">
+                            <button id="menu-cc" class="hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-closed-captioning"></i>
+                            </button>
+                            <button id="menu-settings" class="hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+                            <button id="pip" class="hover:scale-110 transition-transform duration-200">
+                                <i class="ti ti-picture-in-picture-filled"></i>
+                            </button>
+                            <button id="fullscreen" class="hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-expand"></i>
+                                <i class="fa-solid fa-compress hidden"></i>
+                            </button>
+                        </div>
 
+                    </div>
+                <!--Player-Video-->
+                </div>
             <!--Container-player-->
             </div>
         <!--Player-->
