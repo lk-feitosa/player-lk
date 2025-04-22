@@ -17,6 +17,9 @@ const compressIcon = fullscreenBtn.querySelector('.fa-compress');
 const videoContainer = document.getElementById('video-container');
 const player = document.getElementById('player');
 
+const progressBar = document.getElementById('progress-bar');
+const progress = document.getElementById('progress');
+
 // ============================
 // Estado inicial dos ícones
 // ============================
@@ -97,4 +100,15 @@ document.addEventListener('fullscreenchange', () => {
   // Remove padding and rounded corners in fullscreen mode
   player.classList.toggle('rounded-xl', !isFullscreen);
   player.classList.toggle('p-6', !isFullscreen);
+});
+
+// ============================
+// Progress bar
+// ============================
+video.addEventListener('timeupdate', () => {
+  // Calcular o progresso do vídeo
+  const progressPercentage = (video.currentTime / video.duration) * 100;
+
+  // Atualizar a largura da barra com base na %
+  progress.style.width = `${progressPercentage}%`;
 });
