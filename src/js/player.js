@@ -4,7 +4,7 @@
 const video = document.getElementById('video'); // Elemento de vídeo
 const playPauseBtn = document.getElementById('play-pause'); // Botão de play/pause
 const volumeBtn = document.getElementById('volume-mute'); // Botão de volume/mute
-const timeRemaining = document.getElementById('timeReaming'); // Elemento para exibir o tempo restante do vídeo
+const timeRemaining = document.getElementById('timeRemaining'); // Elemento para exibir o tempo restante do vídeo
 
 // Ícones para alternância de estado
 const playIcon = playPauseBtn.querySelector('.fa-play'); // Ícone de play
@@ -116,9 +116,15 @@ document.addEventListener('fullscreenchange', () => {
 // Progress bar
 // ============================
 // Atualiza a barra de progresso com base no tempo atual do vídeo
-video.addEventListener('timeupdate', () => {
+function updateProgressBar() {
   const progressPercentage = (video.currentTime / video.duration) * 100; // Calcula o progresso em porcentagem
   progress.style.width = `${progressPercentage}%`; // Atualiza a largura da barra de progresso
+  requestAnimationFrame(updateProgressBar); // Chama a função novamente para animação contínua 
+}
+
+// Inicia a atualização da barra de progresso
+video.addEventListener('play', () => {
+  requestAnimationFrame(updateProgressBar); // Inicia a animação da barra de progresso
 });
 
 // Permite avançar ou retroceder no vídeo ao clicar na barra de progresso
@@ -128,3 +134,4 @@ progressBar.addEventListener('click', (e) => {
   const percent = x / rect.width; // Calcula a porcentagem correspondente ao clique
   video.currentTime = video.duration * percent; // Atualiza o tempo do vídeo com base na porcentagem
 });
+;

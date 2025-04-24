@@ -35,10 +35,7 @@
                 
                     <!-- Progress Bar -->
                     <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer absolute bottom-12 z-10">
-                        <div id="progress" class="h-full bg-[#A8C738] w-0 transition-all duration-150"></div>
-                        <div id="hover-time" class="absolute z-50 bg-black text-white px-2 py-1 rounded -top-8 -translate-x-1/2 hidden">
-                            0:00
-                        </div>                                                 
+                        <div id="progress" class="h-full bg-[#A8C738] w-0"></div>                                                 
                     </div>
                 
                     <!-- Fundo degradê -->
@@ -50,7 +47,7 @@
                         <!-- Esquerda -->
                         <div id="left-controls" class="flex items-center gap-4">
                             <!-- Play/Pause -->
-                            <button id="play-pause" class="hover:scale-110 transition-transform duration-200">
+                            <button id="play-pause" class="relative p-2 rounded hover: hover:scale-110 transition-transform duration-200">
                                 <i class="fa-solid fa-play"></i>
                                 <i class="fa-solid fa-pause" style="display: none;"></i> <!-- Alterado -->
                             </button>
