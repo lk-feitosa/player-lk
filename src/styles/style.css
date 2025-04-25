@@ -345,6 +345,9 @@
   .bg-\[\#A8C738\] {
     background-color: #A8C738;
   }
+  .bg-black {
+    background-color: var(--color-black);
+  }
   .bg-gray-700 {
     background-color: var(--color-gray-700);
   }
@@ -368,6 +371,9 @@
   .to-transparent {
     --tw-gradient-to: transparent;
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .object-contain {
+    object-fit: contain;
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
