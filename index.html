@@ -58,14 +58,22 @@
                                 <i class="fa-solid fa-forward-step"></i>
                             </button>
 
-                            <!-- Volume -->
-                            <button id="volume-mute" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
-                                <i class="fa-solid fa-volume-high"></i>
-                                <i class="fa-solid fa-volume-xmark" style="display: none;"></i> <!-- Alterado -->
-                            </button>
+                            <!-- Volume Container -->
+                            <div id="volume-container" class="flex items-center gap-1 relative group">
+                                <!-- Botão de Mute -->
+                                <button id="volume-mute" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                    <i class="fa-solid fa-volume-xmark" style="display: none;"></i>
+                                </button>
+
+                                <!-- Barra de Volume (Slider) -->
+                                <input id="volume-slider" type="range" min="0" max="1" step="0.01"
+                                    class="hidden group-hover:flex w-24 h-2 accent-[#A8C738] transition-all duration-300" />
+                            </div>
 
                             <!-- Tempo -->
-                            <div id="timeRemaining">-00.00</div>
+                            <div id="timeRemaining" class="transition-all duration-300 group-hover:ml-28">-00.00</div>
+
                         </div>
 
                         <!-- Direita -->
