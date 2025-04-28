@@ -125,7 +125,7 @@ document.addEventListener('fullscreenchange', () => {
 
   // Remove ou adiciona padding e bordas arredondadas no modo fullscreen
   player.classList.toggle('rounded-xl', !isFullscreen);
-  player.classList.toggle('p-6', !isFullscreen);
+  player.classList.toggle('p-1', !isFullscreen);
 });
 
 // ============================
@@ -150,3 +150,131 @@ progressBar.addEventListener('click', (e) => {
   const percent = x / rect.width; // Calcula a porcentagem correspondente ao clique
   video.currentTime = video.duration * percent; // Atualiza o tempo do vídeo com base na porcentagem
 });
+
+// ============================
+// Barra de Progresso - Drag and Seek (Arrastar para buscar)
+// ============================
+
+// Variável para controlar se o usuário está arrastando a barra de progresso
+let isDragging = false;
+
+// Inicia o arraste ao pressionar o botão do mouse na barra de progresso
+progressBar.addEventListener('mousedown', (e) => {
+  isDragging = true; // Marca que está arrastando
+  seek(e);           // Atualiza o tempo do vídeo imediatamente
+});
+
+// Atualiza o tempo do vídeo enquanto o mouse se move, se estiver arrastando
+document.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+    seek(e);         // Atualiza o tempo do vídeo conforme a posição do mouse
+  }
+});
+
+// Finaliza o arraste ao soltar o botão do mouse
+document.addEventListener('mouseup', () => {
+  isDragging = false; // Marca que parou de arrastar
+});
+
+// Função que calcula e define o tempo do vídeo com base na posição do mouse/touch na barra
+function seek(e) {
+  const rect = progressBar.getBoundingClientRect(); // Pega as dimensões da barra
+  // Suporte a mouse e touch: calcula a posição X relativa à barra
+  const x = e.touches ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+  let percent = x / rect.width;                      // Calcula a porcentagem da barra
+  percent = Math.max(0, Math.min(1, percent));       // Garante que fique entre 0 e 1
+  video.currentTime = video.duration * percent;      // Atualiza o tempo do vídeo
+}
+
+// ============================
+// Suporte a dispositivos móveis (Touch)
+// ============================
+
+// Inicia o arraste ao tocar na barra de progresso
+progressBar.addEventListener('touchstart', (e) => {
+  isDragging = true; // Marca que está arrastando
+  seek(e);           // Atualiza o tempo do vídeo imediatamente
+});
+
+// Atualiza o tempo do vídeo enquanto o dedo se move, se estiver arrastando
+document.addEventListener('touchmove', (e) => {
+  if (isDragging) seek(e); // Atualiza o tempo do vídeo conforme a posição do dedo
+});
+
+// Finaliza o arraste ao soltar o dedo
+document.addEventListener('touchend', () => {
+  isDragging = false; // Marca que parou de arrastar
+});
+
+// ============================
+// Auto-hide dos controles do player (incluindo barra de progresso)
+// ============================
+
+// Referências aos controles e barra de progresso
+const controles = document.getElementById('controles');
+// progressBar já está definido acima
+
+let hideControlsTimeout = null; // Timer para esconder os controles
+let mouseOverControls = false;  // Flag para saber se o mouse está sobre os controles
+let mouseOverProgressBar = false; // Flag para saber se o mouse está sobre a barra de progresso
+
+// Função para mostrar os controles e a barra de progresso
+function showControls() {
+  controles.classList.remove('opacity-0');
+  controles.classList.add('opacity-100');
+  progressBar.classList.remove('opacity-0');
+  progressBar.classList.add('opacity-100');
+  resetHideControlsTimer();
+}
+
+// Função para esconder os controles e a barra de progresso
+function hideControls() {
+  // Só esconde se o mouse não estiver sobre os controles nem sobre a barra de progresso
+  if (!mouseOverControls && !mouseOverProgressBar) {
+    controles.classList.remove('opacity-100');
+    controles.classList.add('opacity-0');
+    progressBar.classList.remove('opacity-100');
+    progressBar.classList.add('opacity-0');
+  }
+}
+
+// Reinicia o timer para esconder os controles
+function resetHideControlsTimer() {
+  clearTimeout(hideControlsTimeout);
+  hideControlsTimeout = setTimeout(hideControls, 1000); // 1 segundo
+}
+
+// Mostra controles ao mover o mouse sobre o vídeo
+videoContainer.addEventListener('mousemove', showControls);
+
+// Detecta quando o mouse entra/sai dos controles
+controles.addEventListener('mouseenter', () => {
+  mouseOverControls = true;
+  showControls();
+  clearTimeout(hideControlsTimeout);
+});
+controles.addEventListener('mouseleave', () => {
+  mouseOverControls = false;
+  resetHideControlsTimer();
+});
+
+// Detecta quando o mouse entra/sai da barra de progresso
+progressBar.addEventListener('mouseenter', () => {
+  mouseOverProgressBar = true;
+  showControls();
+  clearTimeout(hideControlsTimeout);
+});
+progressBar.addEventListener('mouseleave', () => {
+  mouseOverProgressBar = false;
+  resetHideControlsTimer();
+});
+
+// Esconde controles após play/pause, se não estiver sobre os controles ou barra
+video.addEventListener('play', resetHideControlsTimer);
+video.addEventListener('pause', resetHideControlsTimer);
+
+// Mostra controles ao pausar/play manualmente
+videoContainer.addEventListener('click', showControls);
+
+// Inicialmente, mostra os controles
+showControls();

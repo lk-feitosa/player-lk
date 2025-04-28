@@ -17,16 +17,16 @@
   
     <div id="container" class="flex items-center justify-center min-h-screen px-4">
         
-        <div id="player" class="bg-gray-800 rounded-xl w-full max-w-4xl p-6">
+        <div id="player" class="bg-black rounded-xl w-full max-w-4xl p-1">
             
-            <div id="container-player" class="flex flex-col tems-center justify-center gap-6">
+            <div id="container-player" class="flex flex-col tems-center justify-center">
                 <!--Miniatura-->
                 <div id="miniatura">
             
                 </div>
                 
                 <!--Player Video-->
-                <div id="video-container" class="relative w-full aspect-video rounded-lg overflow-hidden flex items-center justify-center">
+                <div id="video-container" class="relative w-full aspect-video rounded overflow-hidden flex items-center justify-center">
 
                     <!-- Vídeo -->
                     <video id="video" class="w-full h-full object-contain">
@@ -35,7 +35,7 @@
                     </video>
                 
                     <!-- Progress Bar -->
-                    <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer absolute bottom-12 z-10">
+                    <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer absolute bottom-12 z-10 transition-opacity duration-300 opacity-100">
                         <div id="progress" class="h-full bg-[#A8C738] w-0"></div>                                                 
                     </div>
                 
@@ -43,7 +43,7 @@
                     <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none z-0"></div>
                 
                     <!-- Controles -->
-                    <div id="controles" class="absolute bottom-0 left-0 w-full flex justify-between items-center px-4 py-2 text-white text-sm z-10">
+                    <div id="controles" class="absolute bottom-0 left-0 w-full flex justify-between items-center px-4 py-2 text-white text-sm z-10 transition-opacity duration-300 opacity-100">
 
                         <!-- Esquerda -->
                         <div id="left-controls" class="flex items-center gap-1">
