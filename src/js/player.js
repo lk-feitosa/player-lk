@@ -23,6 +23,9 @@ const fullscreenBtn = document.getElementById('fullscreen');
 const expandIcon = fullscreenBtn.querySelector('.fa-expand');
 const compressIcon = fullscreenBtn.querySelector('.fa-compress');
 
+// Picture in Picture
+const pipButton = document.getElementById('pip');
+
 // Barra de Progresso
 const progressBar = document.getElementById('progress-bar');
 const progress = document.getElementById('progress');
@@ -372,5 +375,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const qualityButton = document.getElementById('open-quality');
   if (qualityButton) {
     qualityButton.style.display = 'block';
+  }
+});
+
+// ============================
+// Picture-in-Picture
+// ============================
+
+// Verifica se o navegador suporta PiP
+if ('pictureInPictureEnabled' in document) {
+  // Mostra o botão PiP apenas se suportado
+  pipButton.style.display = 'flex';
+
+  // Adiciona o evento de clique
+  pipButton.addEventListener('click', async () => {
+    try {
+      if (document.pictureInPictureElement) {
+        // Sai do modo PiP
+        await document.exitPictureInPicture();
+      } else {
+        // Entra no modo PiP
+        await video.requestPictureInPicture();
+      }
+    } catch (err) {
+      console.error('Erro ao alternar Picture-in-Picture:', err);
+    }
+  });
+
+  // Atualiza o estado do botão quando PiP é ativado/desativado
+  video.addEventListener('enterpictureinpicture', () => {
+    pipButton.classList.add('text-[#A8C738]');
+  });
+
+  video.addEventListener('leavepictureinpicture', () => {
+    pipButton.classList.remove('text-[#A8C738]');
+  });
+} else {
+  // Esconde o botão se PiP não for suportado
+  pipButton.style.display = 'none';
+}
+
+// Trata o erro de PiP não disponível
+video.addEventListener('loadedmetadata', () => {
+  if (!document.pictureInPictureEnabled || video.disablePictureInPicture) {
+    pipButton.style.display = 'none';
   }
 });
