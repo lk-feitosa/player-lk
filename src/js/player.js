@@ -32,6 +32,10 @@ const progress = document.getElementById('progress');
 const hoverTimer = document.getElementById('hover-time');
 const timeRemaining = document.getElementById('timeRemaining');
 
+const hoverTimeDisplay = document.createElement('div');
+hoverTimeDisplay.className = 'absolute bottom-[50px] bg-gray-800 text-white px-2 py-1 rounded text-sm hidden transform -translate-x-1/2';
+videoContainer.appendChild(hoverTimeDisplay);
+
 // Menu de Configurações
 const settingsBtn = document.getElementById('menu-settings');
 const settingsMenu = document.getElementById('settings-menu');
@@ -49,6 +53,47 @@ const submenuQuality = document.getElementById('submenu-quality');
 pauseIcon.classList.add('hidden');
 muteIcon.classList.add('hidden');
 compressIcon.classList.add('hidden');
+
+// Atalhos de teclado
+document.addEventListener('keydown', (e) => {
+  if (document.activeElement.tagName === 'INPUT') return;
+  
+  switch(e.key.toLowerCase()) {
+      case ' ':
+      case 'k':
+          e.preventDefault();
+          video.paused ? video.play() : video.pause();
+          break;
+      case 'f':
+          e.preventDefault();
+          fullscreenBtn.click();
+          break;
+      case 'm':
+          e.preventDefault();
+          volumeBtn.click();
+          break;
+      case 'arrowleft':
+          e.preventDefault();
+          video.currentTime = Math.max(video.currentTime - 5, 0);
+          break;
+      case 'arrowright':
+          e.preventDefault();
+          video.currentTime = Math.min(video.currentTime + 5, video.duration);
+          break;
+      case 'arrowup':
+          e.preventDefault();
+          video.volume = Math.min(video.volume + 0.1, 1);
+          volumeSlider.value = video.volume;
+          updateVolumeIcon();
+          break;
+      case 'arrowdown':
+          e.preventDefault();
+          video.volume = Math.max(video.volume - 0.1, 0);
+          volumeSlider.value = video.volume;
+          updateVolumeIcon();
+          break;
+  }
+});
 
 // ============================
 // Controles de Reprodução (Play/Pause)
@@ -114,6 +159,20 @@ document.addEventListener('fullscreenchange', () => {
   player.classList.toggle('p-1', !isFullscreen);
 });
 
+// Double Click para Fullscreen
+let lastClick = 0;
+video.addEventListener('click', (e) => {
+    const now = Date.now();
+    if (now - lastClick < 300) { // Double click
+        if (!document.fullscreenElement) {
+            videoContainer.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+    lastClick = now;
+});
+
 // ============================
 // Barra de Progresso e Tempo
 // ============================
@@ -132,6 +191,40 @@ video.addEventListener('timeupdate', () => {
   const minutes = Math.floor(remaining / 60);
   const seconds = Math.floor(remaining % 60).toString().padStart(2, '0');
   timeRemaining.textContent = `-${minutes}:${seconds}`;
+});
+
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  seconds = Math.floor(seconds % 60);
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+progressBar.addEventListener('mousemove', (e) => {
+  const rect = progressBar.getBoundingClientRect();
+  const percent = Math.min(Math.max(0, e.clientX - rect.left), rect.width) / rect.width;
+  const time = video.duration * percent;
+  
+  // Posiciona o display de tempo
+  hoverTimeDisplay.style.left = `${e.clientX}px`;
+  hoverTimeDisplay.textContent = formatTime(time);
+  hoverTimeDisplay.classList.remove('hidden');
+});
+
+progressBar.addEventListener('mouseleave', () => {
+  hoverTimeDisplay.classList.add('hidden');
+});
+
+// Atualiza a posição do hover time durante o arrasto
+document.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+      const rect = progressBar.getBoundingClientRect();
+      const percent = Math.min(Math.max(0, e.clientX - rect.left), rect.width) / rect.width;
+      const time = video.duration * percent;
+      
+      hoverTimeDisplay.style.left = `${e.clientX}px`;
+      hoverTimeDisplay.textContent = formatTime(time);
+      hoverTimeDisplay.classList.remove('hidden');
+  }
 });
 
 // ============================
@@ -356,7 +449,6 @@ function updateQualityOptions(selected) {
 updateSpeedOptions(1);
 updateQualityOptions('auto');
 
-// Remova todo o código HLS abaixo e substitua por:
 // ============================
 // Configuração HLS (se disponível)
 // ============================
