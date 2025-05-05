@@ -232,21 +232,6 @@ function formatTime(seconds) {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// Preview de tempo ao passar o mouse
-progressBar.addEventListener('mousemove', (e) => {
-  const rect = progressBar.getBoundingClientRect();
-  const percent = Math.min(Math.max(0, e.clientX - rect.left), rect.width) / rect.width;
-  const time = video.duration * percent;
-  
-  hoverTimeDisplay.style.left = `${e.clientX}px`;
-  hoverTimeDisplay.textContent = formatTime(time);
-  hoverTimeDisplay.classList.remove('hidden');
-});
-
-progressBar.addEventListener('mouseleave', () => {
-  hoverTimeDisplay.classList.add('hidden');
-});
-
 // ===================================================
 // 8. SISTEMA DE DRAG AND SEEK
 // ===================================================

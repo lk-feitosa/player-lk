@@ -1,0 +1,49 @@
+/* Variáveis de tema */
+:root {
+    /* Cores principais */
+    --player-bg: #000000; /* Fundo do player */
+    --player-hover: #A8C738; /* Cor de hover */
+    --player-text: #ffffff; /* Texto */
+    --player-progress-bg: #444444; /* Fundo da barra de progresso */
+    --player-progress: #A8C738; /* Cor do progresso */
+    --player-menu-bg: #1a1a1a; /* Fundo dos menus */
+    --player-menu-hover: #A8C738; /* Hover nos menus */
+  
+    /* Outros ajustes */
+    --player-border-radius: 8px; /* Arredondamento */
+  }
+  
+  /* Estilos globais do player */
+  #player {
+    background-color: var(--player-bg);
+    border-radius: var(--player-border-radius);
+  }
+  
+  button {
+    color: var(--player-text);
+    background-color: transparent;
+  }
+  
+  button:hover {
+    background-color: var(--player-hover);
+  }
+  
+  #progress-bar {
+    background-color: var(--player-progress-bg);
+  }
+  
+  #progress {
+    background-color: var(--player-progress);
+  }
+  
+  #settings-menu,
+  #submenu-speed,
+  #submenu-quality {
+    background-color: var(--player-menu-bg);
+  }
+  
+  #settings-menu button:hover,
+  #submenu-speed button:hover,
+  #submenu-quality button:hover {
+    background-color: var(--player-menu-hover);
+  }
