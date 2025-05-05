@@ -29,11 +29,6 @@ const progressBar = document.getElementById('progress-bar');
 const progress = document.getElementById('progress');
 const timeRemaining = document.getElementById('timeRemaining');
 
-// Display de Tempo ao Hover
-const hoverTimeDisplay = document.createElement('div');
-hoverTimeDisplay.className = 'absolute bottom-[45px] bg-gray-800 text-white px-2 py-1 rounded text-sm hidden transform -translate-x-1/2';
-videoContainer.appendChild(hoverTimeDisplay);
-
 // Sistema de Menus
 const settingsBtn = document.getElementById('menu-settings');
 const settingsMenu = document.getElementById('settings-menu');
@@ -250,24 +245,6 @@ function seek(e) {
 progressBar.addEventListener('mousedown', (e) => {
   isDragging = true;
   seek(e);
-});
-
-document.addEventListener('mousemove', (e) => {
-  if (isDragging) {
-      seek(e);
-      // Atualiza preview durante o arrasto
-      const rect = progressBar.getBoundingClientRect();
-      const percent = Math.min(Math.max(0, e.clientX - rect.left), rect.width) / rect.width;
-      const time = video.duration * percent;
-      
-      hoverTimeDisplay.style.left = `${e.clientX}px`;
-      hoverTimeDisplay.textContent = formatTime(time);
-      hoverTimeDisplay.classList.remove('hidden');
-  }
-});
-
-document.addEventListener('mouseup', () => {
-  isDragging = false;
 });
 
 // Eventos de Touch
