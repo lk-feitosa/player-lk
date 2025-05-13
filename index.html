@@ -21,112 +21,132 @@
 </head>
 
 <body class="bg-gray-900 min-h-screen">
-  <!-- Container principal -->
-  <div id="container" class="flex items-center justify-center min-h-screen px-4">
-    
-    <!-- Player -->
-    <div id="player" class="bg-black rounded-xl w-full p-1 md:p-4" style="max-width: 1080px; max-height: 920px;">
-      
-      <!-- Container do player -->
-      <div id="container-player" class="flex flex-col items-center justify-center">
-        
-        <!-- Miniatura (se necessário) -->
-        <div id="miniatura"></div>
-        
-        <!-- Container do vídeo -->
-        <div id="video-container" class="relative w-full aspect-video rounded overflow-hidden flex items-center justify-center">
-          
-          <!-- Vídeo -->
-          <video id="video" class="w-full h-full object-contain">
-            <source src="/03 VALORANT.mp4" type="video/mp4" />
-            Seu navegador não suporta o elemento de vídeo.
-          </video>
-          
-          <!-- Barra de progresso -->
-          <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer absolute bottom-12 z-10 transition-opacity duration-300 opacity-100">
-            <!-- Barra de progresso -->
-            <div id="progress" class="h-full bg-[#A8C738] w-0"></div>
-            
-            <!-- Tooltip -->
-            
-          </div>
-          
-          <!-- Fundo degradê -->
-          <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none z-0"></div>
-          
-          <!-- Controles -->
-          <div id="controles" class="absolute bottom-0 left-0 w-full flex justify-between items-center px-4 py-2 text-white text-sm z-10 transition-opacity duration-300 opacity-100">
-            
-            <!-- Controles à esquerda -->
-            <div id="left-controls" class="flex items-center gap-1">
-              <!-- Botão Play/Pause -->
-              <button id="play-pause" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
-                <i class="fa-solid fa-play"></i>
-                <i class="fa-solid fa-pause" style="display: none;"></i>
-              </button>
+    <!-- Container principal -->
+    <div id="container" class="flex items-center justify-center min-h-screen px-4">
 
-              <!-- Controle de volume -->
-              <div id="volume-container" class="flex items-center gap-1 relative group">
-                <button id="volume-mute" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
-                  <i class="fa-solid fa-volume-high"></i>
-                  <i class="fa-solid fa-volume-xmark" style="display: none;"></i>
-                </button>
-                <input id="volume-slider" type="range" min="0" max="1" step="0.01" class="hidden group-hover:flex w-24 h-2 accent-[#A8C738] transition-all duration-300" />
-              </div>
+        <!-- Player -->
+        <div id="player" class="bg-black rounded-xl w-full p-1 md:p-4" style="max-width: 1080px; max-height: 920px;">
 
-              <!-- Tempo restante -->
-              <div id="timeRemaining" class="transition-all duration-300 group-hover:ml-28">-00:00</div>
-            </div>
+            <!-- Container do player -->
+            <div id="container-player" class="flex flex-col items-center justify-center">
 
-            <!-- Controles à direita -->
-            <div id="right-controls" class="flex items-center gap-1">
-              <!-- Botão de configurações -->
-              <button id="menu-settings" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors relative">
-                <i class="fa-solid fa-gear"></i>
-              </button>
+                <!-- Miniatura (se necessário) -->
+                <div id="miniatura"></div>
 
-              <!-- Menu de configurações -->
-              <div id="settings-menu" class="absolute right-0 bottom-12 bg-gray-800 text-white rounded shadow-lg p-2 w-40 z-50 opacity-0 pointer-events-none transition-all duration-200 flex flex-col gap-1">
-                <button id="open-speed" class="text-left px-2 py-1 rounded hover:bg-[#A8C738] transition-colors">Velocidade</button>
-                <button id="open-quality" class="text-left px-2 py-1 rounded hover:bg-[#A8C738] transition-colors">Qualidade</button>
-              </div>
+                <!-- Container do vídeo -->
+                <div id="video-container" class="relative w-full aspect-video rounded overflow-hidden flex items-center justify-center">
 
-              <!-- Submenu de velocidade -->
-              <div id="submenu-speed" class="hidden absolute right-0 bottom-12 bg-gray-800 text-white rounded shadow-lg p-2 w-48 z-50">
-                <div class="flex items-center mb-2">
-                  <button id="back-speed" class="mr-2 hover:text-[#A8C738]">
-                    <i class="fa-solid fa-arrow-left"></i>
-                  </button>
-                  <span class="font-semibold">Velocidade</span>
+                    <!-- Vídeo -->
+                    <video id="video" class="w-full h-full object-contain">
+                        <source src="/03 VALORANT.mp4" type="video/mp4" />
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+
+                    <!-- Barra de progresso -->
+                    <div id="progress-bar" class="w-full h-2 bg-gray-700 rounded overflow-hidden cursor-pointer absolute bottom-12 z-10 transition-opacity duration-300 opacity-100">
+                    <!-- Progresso -->
+                    <div id="progress" class="h-full bg-[#A8C738] w-0"></div>
+
+                    <!-- Tooltip -->
+                    <span id="tooltip" class="absolute bottom-full mb-2 px-2 py-1 text-sm font-medium text-white bg-black rounded-lg opacity-0 pointer-events-none transition-opacity duration-300">
+                    0:00
+                    </span>
                 </div>
-                <hr class="border-gray-700 mb-2">
-                <div id="speed-options" class="flex flex-col gap-1">
-                  <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="0.25">0.25x</button>
-                  <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="0.5">0.5x</button>
-                  <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="1">Normal</button>
-                  <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="2">2x</button>
+
+                <!-- Fundo degradê -->
+                <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none z-0"></div>
+
+                <!-- Controles -->
+                <div id="controles" class="absolute bottom-0 left-0 w-full flex justify-between items-center px-4 py-2 text-white text-sm z-10 transition-opacity duration-300 opacity-100">
+
+                <!-- Controles à esquerda -->
+                <div id="left-controls" class="flex items-center gap-1">
+                    <!-- Botão Play/Pause -->
+                    <button id="play-pause" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
+                        <i class="fa-solid fa-play"></i>
+                        <i class="fa-solid fa-pause" style="display: none;"></i>
+                    </button>
+
+                    <!-- Controle de volume -->
+                    <div id="volume-container" class="flex items-center gap-1 relative group">
+                        <button id="volume-mute" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <i class="fa-solid fa-volume-xmark" style="display: none;"></i>
+                        </button>
+                        <input id="volume-slider" type="range" min="0" max="1" step="0.01" class="hidden group-hover:flex w-24 h-2 accent-[#A8C738] transition-all duration-300" />
+                    </div>
+
+                    <!-- Tempo restante -->
+                    <div id="timeRemaining" class="transition-all duration-300 group-hover:ml-28">-00:00</div>
                 </div>
-              </div>
 
-              <!-- Botão Picture-in-Picture -->
-              <button id="pip" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
-                <i class="ti ti-picture-in-picture-filled text-[19px]"></i>
-              </button>
+                <!-- Controles à direita -->
+                <div id="right-controls" class="flex items-center gap-1">
+                    <!-- Botão de configurações -->
+                    <button id="menu-settings" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors relative">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
 
-              <!-- Botão Fullscreen -->
-              <button id="fullscreen" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
-                <i class="fa-solid fa-expand"></i>
-                <i class="fa-solid fa-compress" style="display: none;"></i>
-              </button>
+                    <!-- Menu de configurações -->
+                    <div id="settings-menu" class="absolute right-0 bottom-12 bg-gray-800 text-white rounded shadow-lg p-2 w-40 z-50 opacity-0 pointer-events-none transition-all duration-200 flex flex-col gap-1">
+                        <button id="open-speed" class="text-left px-2 py-1 rounded hover:bg-[#A8C738] transition-colors">Velocidade</button>
+                        <button id="open-quality" class="text-left px-2 py-1 rounded hover:bg-[#A8C738] transition-colors">Qualidade</button>
+                    </div>
+
+                    <!-- Submenu de velocidade -->
+                    <div id="submenu-speed" class="hidden absolute right-0 bottom-12 bg-gray-800 text-white rounded shadow-lg p-2 w-48 z-50">
+                        <div class="flex items-center mb-2">
+                            <button id="back-speed" class="mr-2 hover:text-[#A8C738]">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <span class="font-semibold">Velocidade</span>
+                        </div>
+
+                        <hr class="border-gray-700 mb-2">
+                        <div id="speed-options" class="flex flex-col gap-1">
+                            <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="0.25">0.25x</button>
+                            <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="0.5">0.5x</button>
+                            <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="1">Normal</button>
+                            <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="1.25">1.25x</button>
+                            <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="1.5">1.5x</button>
+                            <button class="speed-option text-left px-2 py-1 rounded hover:bg-[#A8C738]/50 transition-colors" data-value="2">2x</button>
+                        </div>
+                    </div>
+
+                    <!-- Submenu de qualidade -->
+                    <div id="submenu-quality" class="hidden absolute right-0 bottom-12 bg-gray-800 text-white rounded shadow-lg p-2 w-48 z-50">
+                        <div class="flex items-center mb-2">
+                            <button id="back-quality" class="mr-2 hover:text-[#A8C738]">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <span class="font-semibold">Qualidade</span>
+                        </div>
+
+                        <hr class="border-gray-700 mb-2">
+                        <div id="quality-options" class="flex flex-col gap-1">
+                            <!-- As opções de qualidade serão geradas dinamicamente pelo JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Botão Picture-in-Picture -->
+                    <button id="pip" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
+                        <i class="ti ti-picture-in-picture-filled text-[19px]"></i>
+                    </button>
+
+                    <!-- Botão Fullscreen -->
+                    <button id="fullscreen" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[#A8C738] transition-colors">
+                        <i class="fa-solid fa-expand"></i>
+                        <i class="fa-solid fa-compress" style="display: none;"></i>
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+</div>
 
-  <!-- Scripts -->
-  <script src="/src/js/player.js"></script>
+    <!-- Scripts -->
+    <script src="/src/js/player.js"></script>
 </body>
 
 </html>

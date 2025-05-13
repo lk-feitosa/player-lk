@@ -401,48 +401,6 @@ function updateSpeedOptions(selected) {
 // 12. CONTROLE DE QUALIDADE
 // ===================================================
 
-const videoQualities = {
-  'auto': 'Automático',
-  '1080p': '1080p',
-  '720p': '720p',
-  '480p': '480p'
-};
-
-openQuality.addEventListener('click', (e) => {
-  e.stopPropagation();
-  submenuQuality.classList.remove('hidden');
-  settingsMenu.classList.add('opacity-0', 'pointer-events-none');
-});
-
-document.getElementById('back-quality').addEventListener('click', (e) => {
-  e.stopPropagation();
-  submenuQuality.classList.add('hidden');
-  settingsMenu.classList.remove('opacity-0', 'pointer-events-none');
-});
-
-// Gerenciamento das opções de qualidade
-document.querySelectorAll('.quality-option').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const value = btn.dataset.value;
-      updateQualityOptions(value);
-      closeAllMenus();
-  });
-});
-
-function updateQualityOptions(selected) {
-  document.querySelectorAll('.quality-option').forEach(btn => {
-      if (btn.dataset.value === selected) {
-          btn.classList.add('bg-[#A8C738]');
-          btn.innerHTML = `<span class="font-bold">&#10003;</span> ${videoQualities[btn.dataset.value]}`;
-      } else {
-          btn.classList.remove('bg-[#A8C738]');
-          btn.textContent = videoQualities[btn.dataset.value];
-      }
-  });
-}
-
 // ===================================================
 // 13. PICTURE-IN-PICTURE
 // ===================================================
