@@ -514,3 +514,4 @@ window.addEventListener('unload', () => {
   video.removeAttribute('src');
   video.load();
 });
+ANALISE todo meu projeto, veja se está funcionando ok, se precisa mudar algo. Eu acho que falta melhorar no meu controle de qualidade, pois não está funcionando no caso. Me dê algumas sugestões do que usar para aplicar isso, e quero fazer algumas mudanças também no meu player, tirar os minutos de baixo e por do lado da barra de progresso, no final dela os minutos que faltam e no começo os minutos que já passaram, no caso o uacha mehpr de outro jeito, e embaixo onde ficava os minutos, por o avançar e retroceder 10 segundos. como no modelo da foto.
